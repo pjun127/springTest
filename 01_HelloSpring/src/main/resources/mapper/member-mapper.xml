@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="member">
+	<resultMap type="map" id="memberMap">
+	</resultMap>
+	<select id="memberLogin" parameterType="map" resultMap="memberMap">
+		SELECT * FROM MEMBER WHERE USERID=#{userId}
+	</select>
+	<insert id="insertMember" parameterType="member">
+		INSERT INTO MEMBER VALUES(#{userId},#{password},#{userName},#{gender},#{age},#{email},#{phone},#{address},#{hobby, typeHandler=strArray},SYSDATE)
+	</insert>
+	<!-- *을 쓸수 있는 이유는 DB와 현재 VO와 명칭이 같기 떄문에 이렇게 쓸수 있다 대소문자 구분 없음!!! 다르면 별칭을 부여하던가 resultMap을 기입해줘야 된다 -->
+	<select id="selectOne" parameterType="string" resultMap="memberType">
+		SELECT * FROM MEMBER WHERE USERID=#{userId}
+	</select>
+	<resultMap type="member" id="memberType">
+		<result column="hobby" property="hobby" typeHandler="strArray"/>
+	</resultMap>
+	<update id="memberUpdate" parameterType="member">
+		UPDATE MEMBER SET userName = #{userName},
+						gender = #{gender},
+						age = #{age},
+						phone = #{phone},
+						address = #{address},
+						hobby = #{hobby,typeHandler=strArray} 
+		WHERE USERID=#{userId}				
+	</update>
+</mapper>
