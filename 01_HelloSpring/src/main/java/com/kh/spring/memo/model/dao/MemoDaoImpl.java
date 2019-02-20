@@ -14,9 +14,9 @@ public class MemoDaoImpl implements MemoDao {
 	SqlSessionTemplate sqlSession;
 
 	@Override
-	public List<Map<String, String>> memoList() {
+	public List<Map<String, String>> selectMemo() {
 		
-		return sqlSession.selectList("memo.memoList");
+		return sqlSession.selectList("memo.selectMemo");
 	}
 
 	@Override

@@ -5,6 +5,6 @@ import java.util.Map;
 
 public interface MemoService {
 	
-	List<Map<String,String>> memoList();
+	List<Map<String,String>> selectMemo();
 	int insertMemo(Map<String,String> map);
 }

@@ -25,7 +25,7 @@ public class MemoController {
 		
 		ModelAndView mv = new ModelAndView();
 		
-		List<Map<String,String>> memoList = service.memoList();
+		List<Map<String,String>> memoList = service.selectMemo();
 		
 		logger.debug(memoList);
 		

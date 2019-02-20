@@ -15,9 +15,9 @@ public class MemoServiceImpl implements MemoService {
 	MemoDao dao;
 
 	@Override
-	public List<Map<String, String>> memoList() {
+	public List<Map<String, String>> selectMemo() {
 		
-		return dao.memoList();
+		return dao.selectMemo();
 	}
 
 	@Override

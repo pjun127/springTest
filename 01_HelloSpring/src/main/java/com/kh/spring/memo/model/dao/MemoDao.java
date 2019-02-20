@@ -5,6 +5,6 @@ import java.util.Map;
 
 public interface MemoDao {
 	
-	List<Map<String,String>> memoList();
+	List<Map<String,String>> selectMemo();
 	int insertMemo(Map<String,String> map);
 }
