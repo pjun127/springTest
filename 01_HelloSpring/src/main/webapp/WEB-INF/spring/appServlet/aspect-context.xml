@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	<!-- AOP적용해보자 선언적 XML방식-->
+	<!-- 1. AOP적용 공통모듈을 등록하자(객체 등록) 이렇게 등록하면 spring에서 관리하는 객체가 된다 -->
+	<!-- <bean id="LoggerAspect" class="com.kh.spring.common.aop.LoggerAspect"/> -->
+	
+	<!-- 2. AOP 적용 설정하자 -->
+	<!-- <aop:config>
+		공통 모듈을 어떤것을 쓸건지를 ref로 참조를 해서 가져 온다
+		<aop:aspect id="LoggerAspect" ref="LoggerAspect">
+			어떤 매소드를 적용할지를 pointcut으로 등록
+			expression 표현식 execution(*) 첫번쨰 * 접근 제한자 의미 ..은 갯수에 상관 x는 의미
+			<aop:pointcut expression="execution(* com.kh.spring..*(..))" id="pcAll"/>
+			<aop:around method="loggerAdvice" pointcut-ref="pcAll"/>
+			<aop:before method="beforeAd" pointcut-ref="pcAll"/>
+			<aop:after method="beforeAd" pointcut-ref="pcAll"/>
+		</aop:aspect>
+	</aop:config> -->
+	
+	<!-- 어노테이션을 이용한 AOP적용 -->
+	<aop:aspectj-autoproxy/>
+	
+	
+</beans>

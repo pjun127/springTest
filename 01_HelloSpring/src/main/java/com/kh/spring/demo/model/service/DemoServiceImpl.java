@@ -37,9 +37,10 @@ public class DemoServiceImpl implements DemoService{
 		return dao.updateDevEnd(dev);
 	}
 
-	
+	@Override
+	public int deleteDev(int devNo) {
+		
+		return dao.deleteDev(devNo);
+	}
 
-	
-	
-	
 }

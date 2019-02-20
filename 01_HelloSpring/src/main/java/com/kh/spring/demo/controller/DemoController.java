@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.demo.model.service.DemoService;
 import com.kh.spring.demo.model.vo.Dev;
@@ -122,6 +123,19 @@ public class DemoController {
 		int result = service.updateDevEnd(dev);
 		
 		return "redirect:/demo/selectDemoList.do";
+	}
+	
+	@RequestMapping("/demo/deleteDev.do")
+	public ModelAndView deleteDev(int devNo) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		int result = service.deleteDev(devNo);
+		
+		mv.setViewName("redirect:/demo/selectDemoList.do");
+		
+		return mv;
+		
 	}
 
 }

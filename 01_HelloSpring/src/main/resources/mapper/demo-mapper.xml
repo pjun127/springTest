@@ -21,4 +21,7 @@
 	<update id="updateDevEnd" parameterType="dev">
 		UPDATE DEV SET DEVNAME=#{devName},DEVAGE=#{devAge},DEVEMAIL=#{devEmail},DEVGENDER=#{devGender},DEVLANG=#{devLang, typeHandler=strArray} WHERE DEVNO=#{devNo}
 	</update>
+	<delete id="deleteDev" parameterType="_int">
+		DELETE FROM DEV WHERE DEVNO=#{devNo}
+	</delete>
 </mapper>

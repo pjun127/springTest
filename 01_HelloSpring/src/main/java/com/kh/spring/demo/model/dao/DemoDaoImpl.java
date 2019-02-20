@@ -37,7 +37,10 @@ public class DemoDaoImpl implements DemoDao {
 		return sqlSession.update("demo.updateDevEnd",dev);
 	}
 
-	
-	
-	
+	@Override
+	public int deleteDev(int devNo) {
+		
+		return sqlSession.delete("demo.deleteDev",devNo);
+	}
+
 }
