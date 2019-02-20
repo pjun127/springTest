@@ -44,6 +44,7 @@
                			<a class="dropdown-item" href="${path }/demo/selectDemoList.do">Dev목록</a>
                		</div>
                </li>
+               <li class="nav-item"><a class="nav-link" href="${path }/memo/memo.do">메모</a></li>
                </ul>
                <c:if test="${sessionScope.userId==null }">
 	               <button class="btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="modal" data-target="#loginModal">로그인</button>&nbsp;&nbsp;
