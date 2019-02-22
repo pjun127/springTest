@@ -45,7 +45,7 @@
 	
 	<logger name="com.kh.spring">
 		<!-- <level value="info" /> -->
-		<level value="debug" />
+		<level value="info" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
