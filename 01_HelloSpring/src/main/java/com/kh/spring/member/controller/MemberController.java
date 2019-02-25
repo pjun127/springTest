@@ -1,6 +1,10 @@
 package com.kh.spring.member.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -184,6 +188,43 @@ public class MemberController {
 		mv.addObject("msg",msg);
 		mv.addObject("loc",loc);
 		mv.setViewName("common/msg");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/member/checkId.do")
+	/*public void checkId(String userId, HttpServletResponse response) throws IOException{
+		logger.debug("중복체크");
+		
+		boolean isId=service.checkId(userId)==0?false:true;
+		
+		response.getWriter().print(isId);
+		
+	}*/
+	public ModelAndView checkId(String userId, ModelAndView mv) throws UnsupportedEncodingException {
+		
+		Map map = new HashMap();
+		
+		boolean isId=service.checkId(userId)==0?false:true;
+		
+		map.put("isId", isId);
+		
+		List<String> list = new ArrayList();
+		
+		list.add("Park");
+		list.add("Lee");
+		list.add("Kim");
+		list.add("Shin");
+		
+		//맵에 있는 모든 값을 다 넣는다 key / value 형식으로
+		mv.addAllObjects(map);
+		
+		mv.addObject("char",URLEncoder.encode("문자열","UTF-8"));
+		mv.addObject("num",1);
+		mv.addObject("list",list);
+		
+		//viewName을 명시 할때 servlet-context.xml에 등록한 json id값을 입력 해야 된다.
+		mv.setViewName("jsonView");
 		
 		return mv;
 	}

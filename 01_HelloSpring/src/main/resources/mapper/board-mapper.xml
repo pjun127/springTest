@@ -15,6 +15,13 @@
 		</selectKey>
 	</insert>
 	<insert id="insertAttach" parameterType="com.kh.spring.board.model.vo.Attachment">
+		<!-- 디비 쿼리 일부러 에러 해 놓고 그다음에 트랜잭션 처리 확인 해봐야 됨 -->
 		INSERT INTO ATTACHMENT VALUES(SEQ_ATTACHMENTNO.NEXTVAL, #{boardNo}, #{originalFileName}, #{renamedFileName}, DEFAULT, DEFAULT, DEFAULT)
 	</insert>
+	<select id="selectBoard" parameterType="_int" resultType="map">
+		SELECT * FROM BOARD WHERE BOARDNO=#{boardNo}
+	</select>
+	<select id="selectAttach" parameterType="_int" resultType="map">
+		SELECT * FROM ATTACHMENT WHERE BOARDNO=#{boardNo}
+	</select>
 </mapper>

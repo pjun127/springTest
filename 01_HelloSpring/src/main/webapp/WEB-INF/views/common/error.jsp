@@ -17,6 +17,7 @@
 </head>
 <body>
 	<h1><%=exception.getMessage() %></h1>
+	<%-- <c:if test='<%=(exception.getMessage()%>'><h1>컬럼명을 제대로 입력하세요!</h1></c:if> --%>
 	<h3><a href="${pageContext.request.contextPath }/">메인페이지</a></h3>
 </body>
 </html>

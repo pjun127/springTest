@@ -1,6 +1,6 @@
 package com.kh.spring.common.exception;
 
-public class BoardException extends Exception {
+public class BoardException extends RuntimeException {
 	
 	/**
 	 * 

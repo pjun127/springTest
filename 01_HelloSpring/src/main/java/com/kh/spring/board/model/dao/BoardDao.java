@@ -12,4 +12,6 @@ public interface BoardDao {
 	int insertBoard(Map<String,String> board);
 	//하나하나 분할해서 들어가니까 Attachment 씀
 	int insertAttach(Attachment a);
+	Map<String, String> selectBoard(int boardNo);
+	List<Map<String,String>> selectAttach(int boardNo);
 }

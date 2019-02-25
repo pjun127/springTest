@@ -25,4 +25,8 @@
 						hobby = #{hobby,typeHandler=strArray} 
 		WHERE USERID=#{userId}				
 	</update>
+	<select id="checkId" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER WHERE USERID=#{userId}
+	</select>
+	
 </mapper>

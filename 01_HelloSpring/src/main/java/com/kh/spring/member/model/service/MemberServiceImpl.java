@@ -38,6 +38,12 @@ public class MemberServiceImpl implements MemberService {
 		return dao.memberUpdate(m);
 	}
 
+	@Override
+	public int checkId(String userId) {
+		
+		return dao.checkId(userId);
+	}
+
 	
 	
 	

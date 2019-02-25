@@ -1,14 +1,19 @@
 package com.kh.spring.board.controller;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.spring.board.model.service.BoardService;
 import com.kh.spring.board.model.vo.Attachment;
 import com.kh.spring.common.PageFactory;
+import com.kh.spring.common.exception.BoardException;
 
 @Controller
 public class BoardController {
@@ -56,7 +62,7 @@ public class BoardController {
 	
 	@RequestMapping("/board/boardFormEnd.do")
 	public String boardFormEnd(String boardTitle, String boardWriter, String boardContent,
-								MultipartFile[] upFile, HttpServletRequest request) {
+								MultipartFile[] upFile, HttpServletRequest request) throws BoardException{
 		
 		String saveDir = request.getSession().getServletContext().getRealPath("/resources/upload/board");
 		
@@ -111,6 +117,78 @@ public class BoardController {
 		
 		return "redirect:/board/boardList";
 		
+	}
+	
+	@RequestMapping("/board/boardView.do")
+	public ModelAndView boardView(int boardNo) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		//Board객체로 하는 것은 따로 만들어 보기
+		Map<String, String> map = service.selectBoard(boardNo);
+		List<Map<String, String>> attach = service.selectAttach(boardNo);
+		
+		mv.addObject("board",map);
+		mv.addObject("attach",attach);
+		
+		mv.setViewName("/board/boardView");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/board/filedownLoad.do")
+	public void fileDownLoad(String oName, String rName,
+				HttpServletRequest request,
+				HttpServletResponse response
+			)
+	{
+		BufferedInputStream bis = null;
+		ServletOutputStream sos = null;
+		
+		String dir = request.getSession().getServletContext().getRealPath("/resources/upload/board");
+		File saveFile = new File(dir+"/"+rName);
+		
+		try {
+			FileInputStream fis = new FileInputStream(saveFile);
+			bis = new BufferedInputStream(fis);
+			sos = response.getOutputStream();
+			
+			//파일 명 처리 (인코딩 처리 되어 있으므로)  
+			String resFilename = "";
+			
+			boolean isMSIE = request.getHeader("user-agent").indexOf("MSIE")!=-1||request.getHeader("user-agent").indexOf("Trident")!=-1;
+			
+			if(isMSIE) {
+				resFilename=URLEncoder.encode(oName, "UTF-8");
+				resFilename=resFilename.replaceAll("\\+", "%20");
+			}
+			else {
+				resFilename = new String(oName.getBytes("UTF-8"),"ISO-8859-1");
+			}
+			response.setContentType("application/octet-stream;charset=utf-8");
+			response.addHeader("Content-Disposition", "attachment;filename=\""+resFilename+"\"");
+			
+			//파일길이 설정
+			response.setContentLength((int)saveFile.length());
+			
+			int read = 0;
+			while((read=bis.read())!=-1) {
+				sos.write(read);
+			}
+			
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				sos.close();
+				bis.close();
+			}
+			catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
