@@ -47,8 +47,15 @@
 	<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<beans:property name="order" value="1"/>
 	</beans:bean>
-	<beans:bean id="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView">
+	<beans:bean id="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView"></beans:bean>
 	
+	<!-- id를 사용하지 않으니까 지정 안함 jackson 어노테이션 등록-->
+	<beans:bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<beans:property name="messageConverters">
+			<beans:list>
+				<beans:bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></beans:bean>
+			</beans:list>
+		</beans:property>
 	</beans:bean>
 	
 	
